@@ -2,7 +2,7 @@
 
 echo "Setting up SSH: enable root login without password"
 sshd_config=$(finddir B_SYSTEM_SETTINGS_DIRECTORY)/ssh/sshd_config
-sed -i -e 's/#(PermitRootLogin)*/\1 yes/' -e 's/#(PermitEmptyPasswords)*/\1 yes/' "$sshd_config"
+sed -i -e 's/#\(PermitRootLogin\).*/\1 yes/' -e 's/#\(PermitEmptyPasswords\).*/\1 yes/' "$sshd_config"
 
 echo "Starting SSH daemon"
 useradd sshd
