@@ -33,6 +33,7 @@ cat << EOF > "$portsCfg"
 TREE_PATH="/Ports/haikuports"
 PACKAGER="Leorize's builder $(getarch) <builder@localhost>"
 ALLOW_UNTESTED="yes"
+OUTPUT_DIRECTORY="$HOME/ports"
 EOF
 
 if [[ $(getarch) == x86_gcc2 ]]; then
