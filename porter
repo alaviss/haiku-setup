@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec haikuporter -S -j $(nproc) -v --get-dependencies --no-source-packages "$@"
