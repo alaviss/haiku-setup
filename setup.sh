@@ -31,7 +31,7 @@ portsCfg=$(finddir B_USER_SETTINGS_DIRECTORY)/haikuports.conf
 
 cat << EOF > "$portsCfg"
 TREE_PATH="/Ports/haikuports"
-PACKAGER="Leorize's builder $(getarch) <builder@localhost>"
+PACKAGER="leorize-builder $(getarch) <builder@localhost>"
 ALLOW_UNTESTED="yes"
 OUTPUT_DIRECTORY="$HOME/ports"
 EOF
