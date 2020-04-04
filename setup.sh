@@ -36,6 +36,8 @@ ALLOW_UNTESTED="yes"
 OUTPUT_DIRECTORY="$HOME/ports"
 EOF
 
+mkdir -p ~/ports
+
 if [[ $(getarch) == x86_gcc2 ]]; then
   echo 'SECONDARY_TARGET_ARCHITECTURES="x86"' >> "$portsCfg"
 fi
