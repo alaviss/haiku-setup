@@ -44,4 +44,4 @@ fi
 
 echo "Installing utilities"
 baseDir=$(dirname -- "$0")
-install -m755 "$baseDir/porter" "$userBin/porter"
+install -t "$userBin" -m755 "$baseDir/"{porter,ports}

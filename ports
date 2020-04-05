@@ -1,0 +1,58 @@
+#!/bin/bash
+
+if [[ $# -le 0 ]]; then
+  echo "error: a command must be provided"
+  exit 1
+fi
+
+command=$1
+
+case "$command" in
+  'checkout')
+    repo=
+    branch=
+    if [[ $# -ge 3 ]]; then
+      repo=$2
+      branch=$3
+    elif [[ $# -ge 2 ]]; then
+      repo=haikuports/haikuports
+      branch=$2
+    else
+      echo "error: a branch must be provided"
+      exit 1
+    fi
+
+    if [[ ${repo/*:\/\//} != $repo ]]; then
+      echo "error: only github-relative repos are supported"
+      exit 1
+    fi
+
+    remote=${repo%%/*}
+    if [[ $owner == haikuports ]]; then
+      remote=origin
+    fi
+
+    cd "$(porter -t)" # go to tree
+
+    if ! git remote show "$remote" 2>&1 >/dev/null; then
+      git remote add "$remote" "https://github.com/$repo" || exit 1
+    fi
+
+    if [[ $remote != origin ]]; then
+      git remote set-branches "$remote" "$branch" || exit 1
+      git fetch "$remote" "$branch" || exit 1
+      git checkout -b "$remote_$branch" --track "$remote/$branch" || exit 1
+    else
+      git checkout $branch || exit 1
+    fi
+    ;;
+  'pull')
+    git -C "$(porter -t)" pull --no-edit
+    ;;
+  'reset')
+    git -C "$(porter -t)" reset --hard HEAD
+    ;;
+  'update')
+    porter --repository-update
+    ;;
+esac
