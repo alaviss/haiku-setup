@@ -22,17 +22,15 @@ case "$command" in
       exit 1
     fi
 
-    if [[ ${repo/*:\/\//} != $repo ]]; then
+    if [[ ${repo/*:\/\//} != "$repo" ]]; then
       echo "error: only github-relative repos are supported"
       exit 1
     fi
 
     remote=${repo%%/*}
-    if [[ $owner == haikuports ]]; then
-      remote=origin
-    fi
+    [[ $remote == haikuports ]] && remote=origin
 
-    cd "$(porter -t)" # go to tree
+    cd "$(porter -t)" || exit 1 # go to tree
 
     if ! git remote show -n "$remote" >/dev/null 2>&1; then
       git remote add "$remote" "https://github.com/$repo" || exit 1
@@ -41,9 +39,9 @@ case "$command" in
     if [[ $remote != origin ]]; then
       git remote set-branches "$remote" "$branch" || exit 1
       git fetch "$remote" "$branch" || exit 1
-      git checkout -b "$remote_$branch" --track "$remote/$branch" || exit 1
+      git checkout -b "${remote}_$branch" --track "$remote/$branch" || exit 1
     else
-      git checkout $branch || exit 1
+      git checkout "$branch" || exit 1
     fi
     ;;
   'pull')
