@@ -34,7 +34,7 @@ case "$command" in
 
     cd "$(porter -t)" # go to tree
 
-    if ! git remote show "$remote" 2>&1 >/dev/null; then
+    if ! git remote show -n "$remote" >/dev/null 2>&1; then
       git remote add "$remote" "https://github.com/$repo" || exit 1
     fi
 
