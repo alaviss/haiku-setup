@@ -8,6 +8,11 @@ echo "Starting SSH daemon"
 useradd sshd
 /bin/sshd
 
+echo "Making debug_server log crashes to Desktop"
+debugSrvCfg="$(finddir B_USER_SETTINGS_DIRECTORY)/system/debug_server/settings"
+mkdir -p "$(dirname "$debugSrvCfg")"
+echo "default_action log" > "$debugSrvCfg/settings"
+
 echo "Mounting Ports volume"
 mountvolume Ports
 
