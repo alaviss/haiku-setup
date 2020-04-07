@@ -11,10 +11,10 @@ useradd sshd
 echo "Making debug_server log crashes to Desktop"
 debugSrvCfg="$(finddir B_USER_SETTINGS_DIRECTORY)/system/debug_server/settings"
 mkdir -p "$(dirname "$debugSrvCfg")"
-echo "default_action log" > "$debugSrvCfg/settings"
+echo "default_action log" > "$debugSrvCfg" || exit 1
 
 echo "Mounting Ports volume"
-mountvolume Ports
+mountvolume Ports || exit 1
 
 echo "Setting up git"
 git config --global user.name "Builder"
@@ -30,7 +30,7 @@ fi
 
 userBin=$(finddir B_USER_NONPACKAGED_BIN_DIRECTORY)
 
-ln -s /Ports/haikuporter/haikuporter "$userBin/haikuporter"
+ln -s /Ports/haikuporter/haikuporter "$userBin/haikuporter" || exit 1
 
 portsCfg=$(finddir B_USER_SETTINGS_DIRECTORY)/haikuports.conf
 
