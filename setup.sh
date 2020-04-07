@@ -30,7 +30,7 @@ fi
 
 userBin=$(finddir B_USER_NONPACKAGED_BIN_DIRECTORY)
 
-ln -s /Ports/haikuporter/haikuporter "$userBin/haikuporter" || exit 1
+ln -s /Ports/haikuporter/haikuporter "$userBin/haikuporter"
 
 portsCfg=$(finddir B_USER_SETTINGS_DIRECTORY)/haikuports.conf
 
