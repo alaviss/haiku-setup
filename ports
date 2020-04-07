@@ -32,7 +32,7 @@ case "$command" in
 
     cd "$(porter -t)" || exit 1 # go to tree
 
-    if ! git remote show -n "$remote" >/dev/null 2>&1; then
+    if ! git remote get-url "$remote" >/dev/null 2>&1; then
       git remote add "$remote" "https://github.com/$repo" || exit 1
     fi
 
